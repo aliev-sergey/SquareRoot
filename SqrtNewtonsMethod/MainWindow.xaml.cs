@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SqrtNewtonsMethod
 {
@@ -23,6 +11,30 @@ namespace SqrtNewtonsMethod
         public MainWindow()
         {
             InitializeComponent();
+        }
+        
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            double epsilon, rootNumber, assumption;
+
+            try
+            {
+                double.TryParse(textBox3.Text.Replace(".", ","), out epsilon);
+                double.TryParse(textBox1.Text, out rootNumber);
+                double.TryParse(textBox4.Text, out assumption);
+                double sqrtValue = NewtonsMethod.Pow(rootNumber, epsilon, assumption);
+                textBox2.Text = sqrtValue.ToString();
+                textBox5.Text = Math.Abs(Math.Pow(sqrtValue, 2) - rootNumber).ToString("0.##########");
+            }
+            catch (ArgumentException argumentException)
+            {
+                MessageBox.Show("Неверное значение одного из параметров");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
         }
     }
 }
